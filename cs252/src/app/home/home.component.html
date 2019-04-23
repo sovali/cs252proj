@@ -1,13 +1,13 @@
-<label><input type="text" [(ngModel)]="search" name="search" placeholder="Enter a title!" required>
+<input type="text" [(ngModel)]="search" name="search" placeholder="Enter a title!" required>
+<br>
 <input type="text" [(ngModel)]="year" name="year" placeholder="Enter a year" required>
 <button (click)="onSubmit(search,year)">Search</button>
 
 <div id="container">
         <div id="poster">
-                
+
         </div>
         <div id="movie">
-                
                 <p>Title:{{Apicalls.currMovie.Title}}</p>
                 <p>Year:{{Apicalls.currMovie.Year}}</p>
                 <p>Rated:{{Apicalls.currMovie.Rated}}</p>

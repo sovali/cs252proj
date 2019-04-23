@@ -58,8 +58,6 @@ export class AuthService {
       }
     });*/
   }
-
-
   authorize(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((result) => {
