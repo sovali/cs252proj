@@ -14,10 +14,26 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
   search: string;
-  onSubmit(search) {
-    console.log(search);
+  title: string;
+  onSubmit(search,year) {
+    console.log(year);
+    if ((year == undefined || year == "")&& (search == undefined || search == "")) {
+      alert("Please enter value for at least one of the inputs.");
+    } else if (search == undefined || search == "") {
+      if (year < 1888) {
+        alert("The earliest surviving motion-picture film is from 1888! Sorry!");
+      } else if (year > 2019) {
+        alert("We don't have any movies from the future!");
+      } else {
+        this.Apicalls.callApi3(year);
+      }
+    } else if (year == undefined || year == "") {
+      this.Apicalls.callApi1(search);
+    } else {
+      this.Apicalls.callApi2(search,year);
+    }
+
     //console.log(document.getElementById("search").nodeValue);
-    this.Apicalls.getMovie(this.search);
     this.getSearch();
 
   }

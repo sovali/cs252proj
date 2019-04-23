@@ -53,18 +53,16 @@ export class Apicalls {
     private http:HttpClient,
   ) { }
 
-  callApi() {
-      return this.http.get(this.apiLink + "t=" + this.apiReq + "&" + this.apiKey);
+  public callApi1(search:string) {
+      return this.http.get(this.apiLink + "t=" + search + "&" + this.apiKey).subscribe((data: Movie) => console.log("callapi1" + this.currMovie["Title"]));;
   }
-  search: any;
-  public getMovie(search:string) {
-      this.apiReq = search;
-      console.log(this.getapireq())
-      this.callApi().subscribe((data: Movie) => console.log(data["Year"] + "is now currMovie"));
-    }
 
-    getapireq() {
-        return this.apiReq;
-    }
+  public callApi2(search:string,year:string) {
+    return this.http.get(this.apiLink + "t=" + search + "&y=" + search + "&" +this.apiKey).subscribe((data: Movie) => console.log("callapi2" + this.currMovie["Title"]));;
+  }
 
+  public callApi3(year:string) {
+    return this.http.get(this.apiLink + "y=" + year + "&" + this.apiKey).subscribe((data: Movie) => console.log("callapi3" + this.currMovie["year"]));;
+  }
+  
 }
