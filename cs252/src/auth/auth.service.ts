@@ -1,6 +1,5 @@
 import { Injectable, Injector, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase';
 import { of as observableOf, Observable, BehaviorSubject } from 'rxjs';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
@@ -29,18 +28,14 @@ export class AuthService {
   }
 
   addUser(prevuser) {
-    /*var fireUser = 1;
-    if (fire == 0) {
-      fireUser = 0;
-    }*/
     var user = this.afAuth.auth.currentUser;
     var userprops = this.afs.collection('users').doc(user.uid).set({
       userEmail: user.email,
       firebaseUser: prevuser,
     }).then((result) => {
-      console.log('Your data has been updated!')
+      //console.log('firebase updated!')
     }).catch((error) => {
-      console.log(error)
+      //console.log(error)
     })
   }
 
@@ -67,13 +62,12 @@ export class AuthService {
         var user = this.afAuth.auth.currentUser;
         var fire = this.afs.collection('users').doc(user.uid);
 
-        //this.currUser();
         this.loggedIn.next(true);
-        //this.fireservice.currUser()
         fire.ref.get().then((doc) => {
           if (!doc.exists) {
             this.addUser(1);
           }
+
           // move to page
           const ngZone = this.injector.get(NgZone);
 

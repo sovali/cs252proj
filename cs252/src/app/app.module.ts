@@ -11,11 +11,13 @@ import { AngularFireAuthModule } from '@angular/fire/auth'
 import { environment } from '../environments/environment';
 
 import * as firebase from 'firebase/app';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SigninComponent
+    SigninComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
