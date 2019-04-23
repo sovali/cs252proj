@@ -13,8 +13,11 @@ import {
   providedIn: 'root'
 })
 export class AuthService {
+  // Indicates whether User logged in or not
+  // TO:DO => ADD AUTH TO EVERY PAGE
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  // Current User's Id
   currentUser: string = "";
   constructor(
     public afAuth: AngularFireAuth,
@@ -27,11 +30,11 @@ export class AuthService {
     return this.authorize(new auth.GoogleAuthProvider());
   }
 
+  // Adds user to Firebase
   addUser(prevuser) {
     var user = this.afAuth.auth.currentUser;
     var userprops = this.afs.collection('users').doc(user.uid).set({
       userEmail: user.email,
-      firebaseUser: prevuser,
     }).then((result) => {
       //console.log('firebase updated!')
     }).catch((error) => {
@@ -39,6 +42,7 @@ export class AuthService {
     })
   }
 
+  // 
   currUser() {
     let uid;
     if (this.afAuth.auth.currentUser != null) {
@@ -48,11 +52,11 @@ export class AuthService {
     this.currentUser = uid;
     let userdoc = this.afs.collection('users').doc(this.currentUser);
 
-    userdoc.ref.get().then((doc) => {
+    /*userdoc.ref.get().then((doc) => {
       if (!doc.exists) {
         return;
       }
-    });
+    });*/
   }
 
 
