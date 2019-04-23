@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apicalls } from '../../auth/apicalls.service';
 import {NgForm} from '@angular/forms';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-home',
@@ -14,32 +15,31 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
   search: string;
-  title: string;
-  onSubmit(search,year) {
-    console.log(year);
-    if ((year == undefined || year == "")&& (search == undefined || search == "")) {
-      alert("Please enter value for at least one of the inputs.");
-    } else if (search == undefined || search == "") {
-      if (year < 1888) {
-        alert("The earliest surviving motion-picture film is from 1888! Sorry!");
-      } else if (year > 2019) {
-        alert("We don't have any movies from the future!");
-      } else {
-        this.Apicalls.callApi3(year);
-      }
-    } else if (year == undefined || year == "") {
-      this.Apicalls.callApi1(search);
-    } else {
-      this.Apicalls.callApi2(search,year);
+  year: string;
+  onSubmit(search:string,year:string) {
+    document.getElementById("movie").style.display = "none";
+
+    this.search=search;
+    this.year=year;
+    this.Apicalls.getMovie(search,year);
+    this.getCurrMovie();
+  }
+
+  getCurrMovie() {
+
+    console.log(JSON.stringify(this.Apicalls.currMovie.Response));
+    if (this.Apicalls.currMovie.Response == "" || this.Apicalls.currMovie.Response.length == 0) {
+      this.Apicalls.getMovie(this.search, this.year);
     }
 
-    //console.log(document.getElementById("search").nodeValue);
-    this.getSearch();
+    this.printMovie();
 
   }
 
-  getSearch() {
-    console.log(this.search);
+  printMovie() {
+    document.getElementById("poster").innerHTML = '<img src="' + this.Apicalls.currMovie.Poster + '" alt="Movie Poster">';   //document.getElementById('poster').setAttribute("src", this.Apicalls.currMovie.Poster);
+    document.getElementById("movie").style.display = "inline";
   }
+
 
 }

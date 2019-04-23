@@ -1,3 +1,33 @@
 <label><input type="text" [(ngModel)]="search" name="search" placeholder="Enter a title!" required>
 <input type="text" [(ngModel)]="year" name="year" placeholder="Enter a year" required>
 <button (click)="onSubmit(search,year)">Search</button>
+
+<div id="container">
+        <div id="poster">
+                
+        </div>
+        <div id="movie">
+                
+                <p>Title:{{Apicalls.currMovie.Title}}</p>
+                <p>Year:{{Apicalls.currMovie.Year}}</p>
+                <p>Rated:{{Apicalls.currMovie.Rated}}</p>
+                <p>Released:{{Apicalls.currMovie.Released}}</p>
+                <p>Runtime:{{Apicalls.currMovie.Runtime}}</p>
+                <p>Genre:{{Apicalls.currMovie.Genre}}</p>
+                <p>Director:{{Apicalls.currMovie.Director}}</p>
+                <p>Writer:{{Apicalls.currMovie.Writer}}</p>
+                <p>Actors:{{Apicalls.currMovie.Actors}}</p>
+                <p>Plot:{{Apicalls.currMovie.Plot}} </p>
+                <p>Language:{{Apicalls.currMovie.Language}} </p>
+                <p>Country:{{Apicalls.currMovie.Country}} </p>
+                <p>Awards:{{Apicalls.currMovie.Awards}} </p>
+                <p>Metascore:{{Apicalls.currMovie.Metascore}} </p>
+                <p>IMBD Rating:{{Apicalls.currMovie.imbdRating}} </p>
+                <p>IMBD Votes:{{Apicalls.currMovie.imbdVotes}} </p>
+                <p>IMBD ID:{{Apicalls.currMovie.imbdID}} </p>
+                <p>Type:{{Apicalls.currMovie.Type}} </p>
+                <p>DVD Release:{{Apicalls.currMovie.DVD}} </p>
+                <p>Box Office:{{Apicalls.currMovie.BoxOffice}} </p>
+                <p>Production:{{Apicalls.currMovie.Production}} </p>
+            </div>
+</div>
