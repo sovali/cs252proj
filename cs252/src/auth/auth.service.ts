@@ -1,7 +1,7 @@
 import { Injectable, Injector, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import {of as observableOf,  Observable, BehaviorSubject } from 'rxjs';
+import { of as observableOf, Observable, BehaviorSubject } from 'rxjs';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import {
@@ -28,23 +28,58 @@ export class AuthService {
     return this.authorize(new auth.GoogleAuthProvider());
   }
 
+  addUser(prevuser) {
+    /*var fireUser = 1;
+    if (fire == 0) {
+      fireUser = 0;
+    }*/
+    var user = this.afAuth.auth.currentUser;
+    var userprops = this.afs.collection('users').doc(user.uid).set({
+      userEmail: user.email,
+      firebaseUser: prevuser,
+    }).then((result) => {
+      console.log('Your data has been updated!')
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  currUser() {
+    let uid;
+    if (this.afAuth.auth.currentUser != null) {
+      uid = this.afAuth.auth.currentUser.uid;
+    }
+
+    this.currentUser = uid;
+    let userdoc = this.afs.collection('users').doc(this.currentUser);
+
+    userdoc.ref.get().then((doc) => {
+      if (!doc.exists) {
+        return;
+      }
+    });
+  }
+
+
   authorize(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((result) => {
         var user = this.afAuth.auth.currentUser;
         var fire = this.afs.collection('users').doc(user.uid);
+
+        //this.currUser();
         this.loggedIn.next(true);
         //this.fireservice.currUser()
         fire.ref.get().then((doc) => {
           if (!doc.exists) {
-            // add user to database
+            this.addUser(1);
           }
-            // move to page
-            const ngZone = this.injector.get(NgZone);
+          // move to page
+          const ngZone = this.injector.get(NgZone);
 
-            ngZone.run(() => {
-              this.router.navigate(['../home'],{skipLocationChange: true}) 
-            });
+          ngZone.run(() => {
+            this.router.navigate(['../home'], { skipLocationChange: true })
+          });
         })
       })
   }
