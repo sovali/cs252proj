@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Apicalls } from '../../auth/apicalls.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(public Apicalls: Apicalls) { }
 
   ngOnInit() {
+  }
+  search: string;
+  onSubmit(search) {
+    console.log(search);
+    //console.log(document.getElementById("search").nodeValue);
+    this.Apicalls.getMovie(this.search);
+    this.getSearch();
+
+  }
+
+  getSearch() {
+    console.log(this.search);
   }
 
 }

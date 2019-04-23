@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import * as firebase from 'firebase/app';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
      AngularFirestoreModule,
      AngularFireDatabaseModule,
      AngularFireAuthModule,
-     HttpClientModule
+     HttpClientModule,
+     FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
